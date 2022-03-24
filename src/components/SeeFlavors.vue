@@ -1,7 +1,8 @@
 <template>
-  <div class="section-title">
-    <h1 class="font-pacifico">Nuestros Pasteles</h1>
-  </div>
+    <div style="height:100%; width:100%">
+        <div class="section-title">
+            <h1 class="font-pacifico">Nuestros Pasteles</h1>
+        </div>
 
   <div class="card-container">
         <div class="card">
@@ -49,6 +50,8 @@
         </div>
   </div>
 
+    </div>
+  
 </template>
 
 <script>
@@ -63,84 +66,37 @@ export default {
 
     
     .card-container{
-        height: 90%;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        box-sizing: border-box;
-        padding: 1rem;
-        gap: 2rem;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(2, min-content);
+       
     }
     .card{
-        cursor: pointer;
-        height: 100%;
-        width: 100%;
-        border-radius: 10px;
-        box-shadow: 0 6px 10px rgba(248, 174, 185, 0.3);
+
+        box-shadow: 5px 5px 5px rgba(248, 174, 185, 0.3);
      
     }
-    .card img{
-        object-fit: cover;
-        max-height: 100%;
-        width:100%;
-        height: 70%;
-        border-radius: 10px 10px 0 0;
-    }
-
-    .card-body{
-        flex-basis: 20%;
-        height: 30%;
-        align-content: space-between;
-        display: flex;
-        flex-direction: column;
-        /* line-height: 2em; */
-    }
-
-    .card-body h5{
-       font-family: 'Architects Daughter', cursive;
-       font-size:3vw;
-
-    }
-    .card-body span{
-        color:rgb(109,57,46) !important;
-        font-size:2vw;
 
 
-    }
     .card:hover{
-        transform: scale(1.05);
-        transition: cubic-bezier(0.55, 0.085, 0.68, 0.8);
+
         box-shadow: 0 10px 15px rgba(248, 174, 185, 0.5);
 
 
     }
 
-   @media (min-width: 992px){
-        
-        .card-container{
-            grid-template-columns: repeat(3, 1fr);
-        }
-   }
+
     @media (min-width: 576px) and (max-width: 992px){
         
         .card-container{
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, auto);
         }
     }
      @media (max-width: 576px){
         
         .card-container{
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(1, auto);
         }
-         .card-body h5{
-            font-size:5vw;
 
-        }
-        .card-body span{
-            font-size:5vw;
-
-
-        }
-   }
-
+   } 
+     
 </style>

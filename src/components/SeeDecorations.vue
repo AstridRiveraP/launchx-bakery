@@ -54,7 +54,7 @@ export default {
     }
     .card-container{
         height:80% !important;
-        grid-template-columns: repeat(4, auto);
+        grid-template-columns: repeat(4, 1fr);
         /* padding: 10% 0; */
 
     }

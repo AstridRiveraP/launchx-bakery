@@ -5,7 +5,6 @@
   </nav> -->
   <router-view/>
 </template>
-
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Pacifico&display=swap');
 

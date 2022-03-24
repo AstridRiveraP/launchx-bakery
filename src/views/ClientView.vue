@@ -6,6 +6,7 @@
   <section class="decorations-sect">
       <SeeDecorations/>
   </section>
+  <ContactUs/>
 </template>
 
 <script>
@@ -19,7 +20,7 @@ export default {
   components: {
       SeeFlavors,
       SeeDecorations,
-      ContactUs
+      ContactUs,
   }
 }
 </script>

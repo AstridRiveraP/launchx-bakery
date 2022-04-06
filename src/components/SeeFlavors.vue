@@ -4,60 +4,37 @@
             <h1 class="font-pacifico">Nuestros Pasteles</h1>
         </div>
 
-  <div class="card-container">
-        <div class="card">
-            <img src="../assets/vainilla.jpg">
-            <div class="card-body">
-                <h5>Vainilla</h5>
-                <span>Desde $250.00</span>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/chocolate.jpg">
-            <div class="card-body">
-                <h5>Chocolate</h5>
-                <span>Desde $299.00</span>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/redvelvet.jpg">
-            <div class="card-body">
-                <h5>Red Velvet</h5>
-                <span>Desde $350.00</span>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../assets/moka.jpg">
-            <div class="card-body">
-                <h5>Moka</h5>
-                <span>Desde $285.00</span>
-            </div>
 
-        </div>
-        <div class="card">
-            <img src="../assets/zanahoria.jpg">
-            <div class="card-body">
-                <h5>Zanahoria</h5>
-                <span>Desde $245.00</span>
+    <div class="card-container">
+        <div v-for="flavor in flavorData" :key ="flavor.nombre">
+            <!-- {{flavor.nombre}} -->
+            <div class="card">
+                <img :src="flavor.image">
+                <div class="card-body">
+                    <h5>{{flavor.nombre}}</h5>
+                    <span>Desde ${{flavor.precio.toFixed(2)}}</span>
+                </div>
             </div>
+                
+        
         </div>
-        <div class="card">
-            <img src="../assets/quesofresas.jpg">
-            <div class="card-body">
-                <h5>Vainilla</h5>
-                <span>Desde $275.00</span>
-            </div>
-        </div>
-  </div>
-
     </div>
+</div>
   
 </template>
 
 <script>
+// import {mapState} from 'vuex';
+
 export default {
   name: 'SeeFlavors',
-  
+ computed: {
+     flavorData: function(){
+        //  console.log(this.$store.getters.getAllFlavors);
+         return this.$store.getters.getAllFlavors;
+     },
+   
+ }
 }
 </script>
 

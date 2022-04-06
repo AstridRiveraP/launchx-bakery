@@ -119,5 +119,26 @@ export default {
         transition: 0.3s;
     }
     
-   
+      @media (min-width: 576px) and (max-width: 992px){
+        
+        .grid{
+            grid-template-columns: repeat(2, auto);
+            padding-left:10%;
+        }
+    }
+     @media (max-width: 576px){
+        
+        .grid{
+
+            grid-template-columns: repeat(1, auto);
+            /* text-align: center; */
+        }
+        h1{
+            text-align: left;
+        }
+        footer{
+            padding-left:15%;
+        }
+
+   } 
 </style>

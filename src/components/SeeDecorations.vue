@@ -4,7 +4,7 @@
         <h3 class="font-architects">¡Decora a tu gusto!</h3>
     </div>
     <div class="card-container">
-        <div class="card">
+        <!-- <div class="card">
             <img src="../assets/candlessmall.jpg" alt="velitas para pastel">
             <div class="card-body">
                 <h5>Velas</h5>
@@ -31,12 +31,32 @@
                 <h5>Globos</h5>
                 <span>$100.00</span>
             </div>
+
+        
+        </div> -->
+        <div v-for="deco in decoData" :key ="deco.nombre">
+            <div class="card">
+                <img :src="deco.image">
+                <div class="card-body">
+                    <h5>{{deco.nombre}}</h5>
+                    <span>${{deco.precio.toFixed(2)}}</span>
+                </div>
+            </div>
+             
+        
         </div>
+
     </div>
 </template>
 <script>
 export default {
-    name:'SeeDecorations'
+    name:'SeeDecorations',
+    computed: {
+     decoData: function(){
+        //  console.log(this.$store.getters.getAllDecorations);
+         return this.$store.getters.getAllDecorations;
+     }
+    }
 }
 </script>
 <style scoped>

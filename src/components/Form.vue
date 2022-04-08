@@ -1,12 +1,12 @@
 <template>
     <h1 class="font-pacifico">Haz tu pedido</h1>
     <div class="form">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="name">
+        <label for="name" >Nombre</label>
+        <input type="text" id="name" name="name" v-model.lazy="inputName">
         <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email">
+        <input type="email" id="email" name="email" v-model.lazy="inputEmail">
         <label for="tel">Teléfono</label>
-        <input type="tel" id="phone" name="phone">
+        <input type="tel" id="phone" name="phone" v-model.lazy="inputTel">
 
         <span>
             <h3>Descripción del pedido</h3>
@@ -20,8 +20,7 @@
                 {{flavor}}
                 <br>
             </p>
-            <br>
-            Precio:
+            Precio: ${{$store.getters.getCakePrice.toFixed(2)}}
 
             <br>
             Decoraciones:
@@ -29,12 +28,13 @@
              <p v-for="index in getDecoIndex" :key="index">
                 {{$store.getters.getAllDecorations[index].nombre}} 
                 <br>
-                Cantidad: {{$store.getters.getDeco[index]}} Precio: 
+                Cantidad: {{$store.getters.getDeco[index]}} Precio: ${{$store.getters.getPrices[index].toFixed(2)}}
             </p>
             <br>
+            $TOTAL: {{$store.getters.getTotal.toFixed(2)}}
         </span>
         <div>
-            <button>Hacer pedido</button>
+            <button @click="$store.dispatch('crearPedido')">Hacer pedido</button>
 
         </div>
     </div>
@@ -55,6 +55,30 @@ export default {
             // console.log(arrIndexes);
             return arrIndexes
         },
+        inputName: {
+            get () {
+                return this.$store.state.pedidoActual.cliente.nombre;
+            },
+            set (value) {
+                this.$store.commit('updateClientName', value)
+            }
+        },
+        inputTel: {
+            get () {
+                return this.$store.state.pedidoActual.cliente.tel;
+            },
+            set (value) {
+                this.$store.commit('updateClientTel', value)
+            }
+        },
+        inputEmail: {
+            get () {
+                return this.$store.state.pedidoActual.cliente.email;
+            },
+            set (value) {
+                this.$store.commit('updateClientEmail', value)
+            }
+        }
         
     },
         

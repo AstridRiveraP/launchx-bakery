@@ -1,8 +1,5 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Client</router-link> |
-    <router-link to="/administrator">About</router-link>
-  </nav> -->
+    
   <router-view/>
 </template>
 <style>

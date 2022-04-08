@@ -79,13 +79,13 @@ export default createStore({
     pedidoActual:{
       capas: 0,
       sabores: [],
+      precioSabor: 0.0,
       decoraciones : [0,0,0,0,0,0],
       precios : [0.0,0.0,0.0,0.0,0.0,0.0],
-      total:0,
-      // decoracion :{nombre y cantidad}
+      total:0.0,
       cliente:{
         nombre:"",
-        correo:"",
+        email:"",
         tel:""
       }
     },
@@ -100,8 +100,18 @@ export default createStore({
     getCapas:(state) => state.pedidoActual.capas,
     getFlavors:(state) =>state.pedidoActual.sabores,
     getDeco:(state) => state.pedidoActual.decoraciones,
+    getPrices: (state) => state.pedidoActual.precios,
+    getCakePrice: (state) => state.pedidoActual.precioSabor,
+    getTotal: (state) => state.pedidoActual.total,
+    getAllPedidos: (state) => state.pedidos,
   },
   mutations: {
+    calculatePrices(state){
+      for (let index = 0; index < state.decoraciones.length; index++) {
+        state.pedidoActual.precios[index] = state.decoraciones[index].precio * state.pedidoActual.decoraciones[index];
+      }
+    },
+    
     cantidadPanes(state, cantidad){
       state.pedidoActual.capas = cantidad;
       // console.log(state.pedidoActual.capas);
@@ -118,13 +128,54 @@ export default createStore({
         { decoracion: deco, 
           cantidad: quantity}
       );
-      console.log(state.pedidoActual.decoraciones);
     },
     increment(state, index){
       state.pedidoActual.decoraciones[index]+=1;
     },
     decrement(state, index){
       state.pedidoActual.decoraciones[index]-=1;
+    },
+    
+    agregarPrecioSabor(state, saborNombre){
+      const sabor = state.sabores.find(obj => {
+          return obj.nombre === saborNombre})
+      state.pedidoActual.precioSabor += sabor.precio/state.pedidoActual.capas;
+    },
+    quitarPrecioSabor(state, saborNombre){
+      const sabor = state.sabores.find(obj => {
+        return obj.nombre === saborNombre})
+      state.pedidoActual.precioSabor -= sabor.precio/state.pedidoActual.capas;
+    },
+    calcularTotal(state){
+      console.log(state.pedidoActual.precioSabor,state.pedidoActual.precios);
+      state.pedidoActual.total = state.pedidoActual.precioSabor+state.pedidoActual.precios.reduce((a,b) => a+b,0.0)
+    },
+    updateClientName(state, name){
+      state.pedidoActual.cliente.nombre = name;
+    },
+    updateClientTel(state, tel){
+      state.pedidoActual.cliente.tel = tel;
+    },
+    updateClientEmail(state, email){
+      state.pedidoActual.cliente.email = email;
+    },
+    agregarPedido(state){
+      state.pedidos.push(state.pedidoActual);
+      state.pedidoActual = {
+        capas: 0,
+        sabores: [],
+        precioSabor: 0.0,
+        decoraciones : [0,0,0,0,0,0],
+        precios : [0.0,0.0,0.0,0.0,0.0,0.0],
+        total:0.0,
+        // decoracion :{nombre y cantidad}
+        cliente:{
+          nombre:"",
+          email:"",
+          tel:""
+        }
+
+      }
     },
 
   },
@@ -135,20 +186,34 @@ export default createStore({
     async updateSelectedFlavors({commit}, target){
       if (target.checked){
         commit("selectFlavors", target.value);
+        commit("agregarPrecioSabor", target.value);
+        commit("calcularTotal");
       }
       else{
         commit("removeFlavor", target.value);
+        commit("quitarPrecioSabor", target.value);
+        commit("calcularTotal");
       } 
     },
     async upQuantity({commit, state},index){
       if(state.pedidoActual.decoraciones[index]< state.decoraciones[index].cantidad)
         commit("increment",index);
+        commit("calculatePrices");
+        commit("calcularTotal");
+
     },
     async downQuantity({commit, state},index){
       if (state.pedidoActual.decoraciones[index]>0){
         commit("decrement",index);
+        commit("calculatePrices");
+        commit("calcularTotal");
+
       }      
     },
+    async crearPedido({commit}){
+      commit("agregarPedido");
+    }
+    
 
   },
   modules: {

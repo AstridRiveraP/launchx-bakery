@@ -1,5 +1,8 @@
 <template>
+
   <section class="flavor-sect">
+    <router-link to="/adminView">Administrador</router-link>
+
     <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
     <SeeFlavors/>
   </section>

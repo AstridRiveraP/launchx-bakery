@@ -60,12 +60,12 @@ export default {
     name: "SelectFlavors",
    computed:{
        disable(){
-           const flavors = this.$store.getters.getFlavors;
-           const flavorLen =  this.$store.getters.getFlavors.length;
-           const capas = this.$store.getters.getCapas ;
-           if ( flavorLen >= capas && flavorLen > 0 || capas == 0){
-               return true
-           }
+
+            const flavorLen =  this.$store.getters.getFlavors.length;
+            const capas = this.$store.getters.getCapas;
+            if ( flavorLen >= capas && flavorLen > 0 || capas == 0){
+                return true
+            }
            
        }
    }
